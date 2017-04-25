@@ -22,7 +22,7 @@ _logger = logging.getLogger(__name__)
 
 class waiting_list_rqst(http.Controller):
 
-    @http.route('/wl/x/<model("waiting.list"):waiting_list>', type='http', auth="public", website=False)
+    @http.route('/wl/x/<model("waiting.list"):waiting_list>', type='http', auth="public", website=True)
     def waiting_list_index(self, waiting_list):
         error = {}
         default = {}
@@ -31,7 +31,7 @@ class waiting_list_rqst(http.Controller):
             'waiting_list': waiting_list,
         })
 
-    @http.route('/wl/x/<model("waiting.list"):waiting_list>/send', type='json', auth="public", website=False, methods=['POST'])
+    @http.route('/wl/x/<model("waiting.list"):waiting_list>/send', type='json', auth="public", website=True, methods=['POST'])
     def waiting_list_send(self, waiting_list,**post):
         error = {}
         default = {}
