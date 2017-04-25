@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="wl-layout" name="Main layout">&lt;!DOCTYPE html&gt;
+    <html><head><meta charset="utf-8" /><meta name="viewport" content="initial-scale=1" /><meta name="description" t-att-content="main_object and 'website_meta_description' in main_object                 and main_object.website_meta_description or website_meta_description" /><meta name="keywords" t-att-content="main_object and 'website_meta_keywords' in main_object                 and main_object.website_meta_keywords or website_meta_keywords" /><meta name="generator" content="Odoo" /><title>BLANCOAMOR</title><script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script><script src="/waiting_list/static/src/js/wlapp.js"></script><t t-set="languages" t-value="website.get_languages() if website else None" /><t t-if="request and request.website_multilang and website"><t t-foreach="website.get_alternate_languages(request.httprequest)" t-as="lg"><link rel="alternate" t-att-hreflang="lg['hreflang']" t-att-href="lg['href']" /></t></t><t t-call-assets="web.assets_common" t-js="false" /><t t-call-assets="website.assets_frontend" t-js="false" /><t t-raw="head or ''" name="layout_head" />
+<link href="/waiting_list/static/src/css/wl.css" rel="stylesheet"/>
+</head><body ng-app="wlApp" ng-controller="wlCtrl"><div id="wrapwrap"><header></header><main><t t-raw="0" /></main><footer><div id="footer_container"></div></footer></div></body></html></template>
+
+
+
+        <template id="index" name="wait_list_app">
+            <t t-call="waiting_list.wl-layout">
+                <div class="oe_structure wlapp_structure">
+
+                    <div >
+                        <div ng-show="step==1" class="row">
+
+                    <h1 >Bienvenido a <t t-esc="waiting_list.name"/> </h1>
+                    <h3>¿que estas buscando?</h3>
+                            <t t-foreach="waiting_list.areas_ids" t-as="i">
+                                <div class="col-xs-6 col-md-3 icono">
+                                    <img t-att-src="'data:image/jpeg;base64,%s'% i.image" class="img-rounded" width="200" height="200" ng-class="{'active': active == true}"  t-att="{'ng-click': 'markMe(%s)'%i.id}" />
+                                    
+                                    <div class="caption">
+                                        <h3>
+                                            <div t-esc="i.name" />
+
+                                        </h3>
+                                    </div>
+                                </div>
+                            </t>
+                        </div>
+  
+                        <div class="step step-2" ng-show="step==2">
+                        <h2>¿Cual es tu DNI?</h2>
+
+                            <input type="text" class="form-control input-lg" placeholder="DNI" aria-describedby="DNI" ng-model="dni" />
+                            <div>Si ya tenes un presupuesto te XXX </div>
+
+                            <div class="btn-group btn-lg" role="group" aria-label="">
+                            <button type="button" ng-click="step = step - 1" class="btn btn-default">Volver</button>
+                            <button type="button" ng-click="step = step + 1" class="btn btn-default">Continuar</button>
+                            </div>
+
+                        </div>
+                        <div class="step step-3" ng-show="step==3">
+                        <h2>¿Cual es tu telefono?</h2>
+  
+                            <input type="text" class="form-control input-lg" placeholder="Telefono" aria-describedby="telefono" ng-model="telefono" />
+                           <div>Con es ta info </div>
+                            <div class="btn-group btn-lg" role="group" aria-label="">
+                              <button type="button" ng-click="step = step - 1" class="btn btn-default">Volver</button>
+                              <button type="button" ng-click="sendData()" class="btn btn-default">Continuar</button>
+                            </div>
+
+                        </div>
+                        <div ng-show="step==4">
+                            cargando
+                        </div>
+                        <div ng-show="step==5">
+
+                            <div class="jumbotron">
+                              <h1>{{ numero }}</h1>
+                            <h3> <span class="label label-default">{{ meeting_point }}</span></h3>
+                              <p>...</p>
+                            </div>
+
+
+                        </div>
+                    </div >
+                </div>
+    {{ step }}
+
+            </t>
+        </template>
+    </data>
+</openerp>

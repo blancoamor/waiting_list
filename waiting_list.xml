@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <menuitem id="menu_waiting_list" name="Listas de precios" parent="base.menu_sales" sequence="55"/>
+
+        <record id="waiting_list_saleman_in_out" model="ir.ui.view">
+            <field name="name">waiting.list.saleman_in_out</field>
+            <field name="model">waiting.list.saleman_in_out</field>
+            <field name="arch" type="xml">
+                <form string="Ingreso">
+
+                    <group string="Ingreso">
+                        <field name="user_id" />
+                        <field name="waiting_list_id" />
+
+                    </group>
+                       <bottom>
+
+                        <button name="saleman_in" string="Ingresar" type="object" class="oe_highlight"  />
+                        <button name="saleman_out" string="Salir" type="object" class="oe_highlight"  />
+                    </bottom>
+                </form>
+            </field>
+        </record>
+
+        <record id="waiting_list_saleman_in_out_action" model="ir.actions.act_window">
+            <field name="name">Ingresar</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">waiting.list.saleman_in_out</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="waiting_list_saleman_in_out" />
+        </record>
+
+
+        <menuitem action="waiting_list_saleman_in_out_action" id="waiting_list_saleman_in_out_menu" parent="menu_waiting_list" sequence="5" />
+  
+
+
+
+        <record id="view_waiting_list_tree" model="ir.ui.view">
+            <field name="name">waiting.list.tree</field>
+            <field name="model">waiting.list</field>
+            <field name="arch" type="xml">
+                <tree string="listas">
+                    <field name="name" />
+                    <field name="section_id" />
+                    <field name="active_user_ids" />
+
+
+                </tree>
+            </field>
+        </record>
+        <!--   Product Price List -->
+        <record id="view_waiting_list" model="ir.ui.view">
+            <field name="name">Lista de atencion</field>
+            <field name="model">waiting.list</field>
+            <field name="arch" type="xml">
+                <form string="Price List">
+
+                    <group string="Lista.">
+                        <field name="name" />
+                        <field name="section_id" />
+                        <field name="areas_ids" />
+                        <field name="last_use_date_a" />
+                        <field name="last_number_a" />
+                        <field name="active_user_ids" widget="many2many_tags" />
+
+                    </group>
+                </form>
+            </field>
+        </record>
+        <record id="waiting_list" model="ir.actions.act_window">
+            <field name="name">Lista de atencion</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">waiting.list</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="view_waiting_list_tree" />
+        </record>
+
+
+        <menuitem action="waiting_list" id="action_waiting_list" parent="menu_waiting_list" sequence="30" />
+  
+
+
+
+        <record id="view_waiting_list_item_tree" model="ir.ui.view">
+            <field name="name">waiting.list.item.tree</field>
+            <field name="model">waiting.list.item</field>
+            <field name="arch" type="xml">
+                <tree string="listas">
+                    <field name="name" />
+                    <field name="datetime"/>
+                    <field name="state"/>
+                    <field name="waiting_list_id"/>
+
+
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_waiting_list_item" model="ir.ui.view">
+            <field name="name">Lista de atencion</field>
+            <field name="model">waiting.list.item</field>
+            <field name="arch" type="xml">
+                <form string="Price List">
+                   <header>
+                        <button name="require" string="requerir" type="object" class="oe_highlight"  />
+                        <button name="cancelar" string="Cancelar" type="object" class="oe_link"  />
+                        <field name="state" widget="statusbar" />
+                    </header>
+
+                    <group string="cliente" col="4" >
+                        <field name="name" readonly="True" />
+                        <field name="partner_id"/>
+                        <field name="phone"/>
+                        <field name="document"/>
+
+                    </group>
+
+                    <notebook>
+                        <page string="atencion">
+                          <group >
+
+                            <field name="datetime" readonly="True"/>
+                            <field name="waiting_list_id"/>
+                            <field name="user_id"/>
+                            <field name="proposed_user_id"/>
+
+                            <field name="areas_ids" widget="many2many_tags" />
+                            <field name="meeting_point"/>
+                            </group>
+                        </page>
+                        <page string="quoted">
+                            <field name="orders_ids"/>
+                        </page>
+
+                        <page string="log">
+                            <field name="log_ids">
+                                <tree string="listas">
+                                    <field name="name" />
+                                    <field name="datetime" />
+                                    <field name="user_id" />
+
+                                </tree>
+                            </field>
+                        </page>
+
+                    </notebook>
+
+
+                </form>
+            </field>
+        </record>
+        <record id="waiting_list_item" model="ir.actions.act_window">
+            <field name="name">Listado</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">waiting.list.item</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="view_waiting_list_item_tree" />
+        </record>
+
+
+        <menuitem action="waiting_list_item" id="action_waiting_list_item" parent="menu_waiting_list" sequence="30" />
+
+
+    </data>
+</openerp>
+        
